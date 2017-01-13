@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -x  # turn trace on 
+#set -x  # turn trace on
 set -e   # stop at first error
 
 
@@ -129,7 +129,7 @@ update_repo ()
 ROOT_FOLDER=$(get_root_folder)
 ANDROID_SDK_REPO_PATH="https://github.com/forcedotcom/SalesforceMobileSDK-Android.git"
 ANDROID_SDK_FOLDER="SalesforceMobileSDK-Android"
-IOS_SDK_REPO_PATH="https://github.com/forcedotcom/SalesforceMobileSDK-iOS.git"
+IOS_SDK_REPO_PATH="https://github.com/ITBconsult/SalesforceMobileSDK-iOS.git"
 IOS_SDK_FOLDER="SalesforceMobileSDK-iOS"
 SHARED_SDK_REPO_PATH="https://github.com/forcedotcom/SalesforceMobileSDK-Shared.git"
 SHARED_SDK_FOLDER="SalesforceMobileSDK-Shared"
@@ -137,7 +137,7 @@ SHARED_SDK_FOLDER="SalesforceMobileSDK-Shared"
 update_ios_repo ()
 {   
     update_repo "${IOS_SDK_FOLDER}" "${IOS_SDK_REPO_PATH}"
-    
+
     if [ "$OPT_BUILD" == "yes" ]
     then
         echo "Building the iOS SDK"
@@ -185,11 +185,11 @@ copy_ios_sdk()
     unzip $IOS_SDK_FOLDER/build/artifacts/SmartSync-Debug.zip -d tmp
     echo "Copying SalesforceHybridSDK library"
     unzip $IOS_SDK_FOLDER/build/artifacts/SalesforceHybridSDK-Debug.zip -d tmp
-    echo "Copying sqlcipher library"    
+    echo "Copying sqlcipher library"
     cp -RL $IOS_SDK_FOLDER/external/ThirdPartyDependencies/sqlcipher tmp
     echo "Copying CocoaLumberjack library"
     unzip $IOS_SDK_FOLDER/build/artifacts/Lumberjack-Debug.zip -d tmp
-    echo "Copying AppDelegate+SalesforceHybridSDK"    
+    echo "Copying AppDelegate+SalesforceHybridSDK"
     cp $IOS_SDK_FOLDER/shared/hybrid/AppDelegate+SalesforceHybridSDK.*  tmp
     cp $IOS_SDK_FOLDER/shared/hybrid/UIApplication+SalesforceHybridSDK.*  tmp
     cp $IOS_SDK_FOLDER/shared/hybrid/InitialViewController.*  tmp
@@ -230,7 +230,7 @@ copy_ios_sdk()
     copy_and_fix SFSDKLoginHost.h headers
     copy_and_fix SFSDKLoginHostListViewController.h headers
     copy_and_fix SFSDKLoginHostStorage.h headers
-    
+
     echo "Copying needed libraries to src/ios/frameworks"
     copy_lib libSalesforceAnalytics.a
     copy_lib libSalesforceSDKCore.a
@@ -341,4 +341,3 @@ cd ${ROOT_FOLDER}
 rm -rf $ANDROID_SDK_FOLDER
 rm -rf $IOS_SDK_FOLDER
 rm -rf $SHARED_SDK_FOLDER
-
